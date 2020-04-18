@@ -5,12 +5,14 @@ MongoClient.connect(url,
 function(err, db){
 	if(err) throw err;
 	var dbObj = db.db("Gamey");
-
-	dbObj.collection("myMovies").findOne({}, function(err, result){
+dbObj.collection("myMovies").findOne({}, function(err, result){
 		if(err) throw err;
-		console.log("The first document in this collection is "+result.name);
+		console.log("The first document in this collection is: \n");
+		console.log("movie: "+result.movie+"\n");
+		console.log("year: "+result.year+"\n");
+		console.log("rating: "+result.rating);
 		db.close();
-	}):
+	});
 });
 MongoClient.connect(url, function(err, db){
 if(err) throw err;
@@ -26,9 +28,9 @@ var query = {rating: 7}; //query to filter the and extract documents with a rati
 });
 MongoClient.connect(url, function(err, db){
 if(err) throw err;
-var dbObj = db.db("Gamey"); //database intance created by this line
+var dbObj = db.db("Gamey"); //database instance created by this line
 	//list only the movies field data out of the whole collection fields
-	dbObj.collection("myMovies").find({}, {projection: {_movie:1,year:0,rating:0}}).toArray(function(err,
+	dbObj.collection("myMovies").find({}, {projection: {_movie:1}).toArray(function(err,
 		result){
 		if(err) throw err;
 		console.log(result);
